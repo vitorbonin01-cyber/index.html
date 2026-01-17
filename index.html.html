@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificador Secreto</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4);
+            background-size: 400% 400%;
+            animation: gradientShift 5s ease infinite;
+            font-family: 'Arial', sans-serif;
+            color: white;
+            overflow: hidden;
+        }
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .container {
+            text-align: center;
+            background: rgba(0,0,0,0.3);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        input {
+            padding: 15px;
+            font-size: 18px;
+            border: none;
+            border-radius: 10px;
+            width: 250px;
+            margin: 10px;
+            text-align: center;
+        }
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            background: #ff4757;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #ff3838;
+        }
+        .loading {
+            display: none;
+            font-size: 24px;
+        }
+        .loading::after {
+            content: '';
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+            margin-left: 10px;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .result {
+            display: none;
+            font-size: 48px;
+            font-weight: bold;
+            margin-top: 20px;
+            animation: bounce 1s infinite;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+        .credit {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-size: 14px;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="credit">criado por Vitor Bonin</div>
+    
+    <div class="container" id="startScreen">
+        <h1>🔍 Verificador Secreto</h1>
+        <p>Digite seu nome para a verificação:</p>
+        <input type="text" id="userName" placeholder="Seu nome aqui..." maxlength="20">
+        <br>
+        <button onclick="startVerification()">Verificar Agora! 🚀</button>
+    </div>
+
+    <div class="loading" id="loadingScreen">
+        <div>Analisando <span id="nameDisplay"></span>...</div>
+    </div>
+
+    <div class="result" id="resultScreen">
+        vc é gay🫵😂
+    </div>
+
+    <script>
+        function startVerification() {
+            const name = document.getElementById('userName').value.trim();
+            if (name === '') {
+                alert('Digite seu nome primeiro! 😜');
+                return;
+            }
+
+            document.getElementById('nameDisplay').textContent = name;
+            document.getElementById('startScreen').style.display = 'none';
+            document.getElementById('loadingScreen').style.display = 'block';
+
+            // Simula carregamento
+            setTimeout(() => {
+                document.getElementById('loadingScreen').style.display = 'none';
+                document.getElementById('resultScreen').style.display = 'block';
+            }, 3000);
+        }
+
+        // Enter para verificar
+        document.getElementById('userName').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                startVerification();
+            }
+        });
+    </script>
+</body>
+</html>
